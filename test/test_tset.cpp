@@ -2,6 +2,15 @@
 
 #include <gtest.h>
 
+
+
+TEST(TSet, odin_ravno_odin)
+{
+	const int a = 1;
+
+	EXPECT_EQ(1, a);
+}
+
 TEST(TSet, can_get_max_power_set)
 {
   const int size = 5;
