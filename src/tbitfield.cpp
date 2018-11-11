@@ -7,6 +7,7 @@
 
 #include "tbitfield.h"
 
+
 TBitField::TBitField(int len)
 {
 	if(len <= 0) 
@@ -72,7 +73,7 @@ void TBitField::ClrBit(const int n) // очистить бит
 int TBitField::GetBit(const int n) const // получить значение бита
 {
 	if ((n < 0) || (n >= BitLen))
-		throw ;
+		throw -1;
 	return (pMem[GetMemIndex(n)] & GetMemMask(n));
 }
 
@@ -138,23 +139,42 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 
 TBitField TBitField::operator~(void) // отрицание
 {
-	/*TBitField temp(BitLen);
+	TBitField temp(BitLen);
 	for (int i = 0; i < BitLen; i++) 
 	{
 		if (this->GetBit(i) == 0)
 			temp.SetBit(i);
 	}
-	return temp;*/
-	return 0;
+	return temp;
 }
 
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
+	string str;
+	istr >> str;
+	if (str.size() != bf.GetLength())
+		throw -1;
+		for (int i = 0; i < bf.BitLen; i++)
+	{
+		if (str[i] == '0')
+			bf.ClrBit(i);
+		else if (str[i] == '1')
+			bf.SetBit(i);
+		else
+			throw -1;
+	}
 	return istr;
 }
 
 ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
 {
+	for (int i = 0; i < bf.BitLen; i++)
+	{
+		if (bf.GetBit(i))
+			ostr << 1;
+		else
+			ostr << 0; 
+	}
 	return ostr;
 }
