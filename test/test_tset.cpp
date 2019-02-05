@@ -4,12 +4,6 @@
 
 
 
-TEST(TSet, odin_ravno_odin)
-{
-	const int a = 1;
-
-	EXPECT_EQ(1, a);
-}
 
 TEST(TSet, can_get_max_power_set)
 {
@@ -303,4 +297,20 @@ TEST(TSet, check_negation_operator)
   expSet.InsElem(2);
 
   EXPECT_EQ(expSet, set1);
+}
+
+TEST(TSet, compare_two_sets)
+{
+  const int size = 4;
+  TSet set1(size), set2(size);
+  // set1 = {1,3}
+  set1.InsElem(1);
+  set1.InsElem(3);
+  // set2 = {1,3}
+  set2.InsElem(1);
+  set2.InsElem(3);
+  EXPECT_EQ(1, set1 == set2);
+  set2.InsElem(2);
+  // set2 = {1,2,3}
+  EXPECT_NE(1, set1 == set2);
 }
